@@ -54,28 +54,62 @@ public class Main2 {
                 programmer8,
                 programmer9);
         System.out.println(programmers);
-
+        System.out.println();
+        //a
+        List<Programmer> resultAA = programmers.stream().filter(programmer -> programmer.getPerson().isMale()).toList();
+        System.out.println("Wynik AA: "+resultAA);
         List<Person> resultA = programmers.stream().map(person -> person.getPerson()).filter(person -> person.isMale()).toList();
-        System.out.println(resultA);
+        System.out.println("Wynik A: "+resultA);
+        System.out.println();
+        //b
+        List<Programmer> resultBB = programmers.stream().filter(programmer ->programmer.getLanguages().contains("Cobol"))
+                .filter(programmer -> programmer.getPerson().getAge()<18).toList();
+        System.out.println("Wynik BB: "+resultBB);
         List<Person> resultB = programmers.stream().filter(programmer -> programmer.getLanguages().contains("Cobol"))
                 .map(person->person.getPerson())
                 .filter(person -> person.getAge()<18).toList();
-        System.out.println(resultB);
-
+        System.out.println("Wynik B: "+resultB);
+        System.out.println();
+        //c
         List<Programmer> resultC = programmers.stream().filter(programmer -> programmer.getLanguages().size()>1).toList();
-        System.out.println(resultC);
+        System.out.println("Wynik C: "+resultC);
+        System.out.println();
+        //d
+        List<Programmer> resultDD = programmers.stream().filter(programmer -> programmer.getLanguages().contains("Java") && programmer.getLanguages().contains("Cpp"))
+                .filter(programmer -> !programmer.getPerson().isMale()).toList();
+        System.out.println("Wynik DD: "+resultDD);
         List<Person> resultD = programmers.stream().filter(programmer -> programmer.getLanguages().contains("Java") && programmer.getLanguages().contains("Cpp"))
                 .map(person->person.getPerson()).filter(person -> !person.isMale()).toList();
-        System.out.println(resultD);
+        System.out.println("Wynik D: "+resultD);
+        System.out.println();
+        //e
         List<String> resultE = programmers.stream().map(person->person.getPerson()).filter(person -> person.isMale())
                 .map(person -> person.getFirstName()).toList();
-        System.out.println(resultE);
+        System.out.println("Wynik E: "+resultE);
+        System.out.println();
+        //f
        // List<List<String>> resultF = programmers.stream().map(programmer -> programmer.getLanguages())
         //System.out.println(resultF);
+        //System.out.println();
+        //g
         List<String> resultG = programmers.stream().filter(programmer -> programmer.getLanguages().stream().count()>2)
                 .map(person->person.getPerson()).map(person -> person.getLastName()).toList();
-        System.out.println(resultG);
-
+        System.out.println("Wynik G: "+resultG);
+        System.out.println();
+        //h
+       Optional<Programmer> resultH = programmers.stream().filter(programmer -> programmer.getLanguages().isEmpty()).findAny();
+       List<Programmer> resultHlista = programmers.stream().filter(programmer -> programmer.getLanguages().isEmpty()).toList();
+        System.out.println(resultHlista);
+        if(resultH.isPresent()){
+            System.out.println("Wynik h: jest conajmniej 1 taka osoba");
+        } else {
+            System.out.println("Nie ma takiej osoby");
+        }
+        System.out.println();
+        //i
+        int resultI = programmers.stream().filter(programmer -> !programmer.getPerson().isMale()).mapToInt(programmer->programmer.getLanguages().size()).sum();
+        System.out.println("Wynik I: "+resultI);
+        System.out.println();
 
     }
 }
