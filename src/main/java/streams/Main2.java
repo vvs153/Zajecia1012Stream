@@ -88,9 +88,10 @@ public class Main2 {
         System.out.println("Wynik E: "+resultE);
         System.out.println();
         //f
-       // List<List<String>> resultF = programmers.stream().map(programmer -> programmer.getLanguages())
-        //System.out.println(resultF);
-        //System.out.println();
+       Set<String> resultF = programmers.stream().map(programmer -> programmer.getLanguages())
+               .flatMap(languages->languages.stream()).collect(Collectors.toSet());
+        System.out.println("Wynik F: "+resultF);
+        System.out.println();
         //g
         List<String> resultG = programmers.stream().filter(programmer -> programmer.getLanguages().stream().count()>2)
                 .map(person->person.getPerson()).map(person -> person.getLastName()).toList();
@@ -107,9 +108,12 @@ public class Main2 {
         }
         System.out.println();
         //i
-        int resultI = programmers.stream().filter(programmer -> !programmer.getPerson().isMale()).mapToInt(programmer->programmer.getLanguages().size()).sum();
-        System.out.println("Wynik I: "+resultI);
+        Long resultI = programmers.stream().filter(programmer -> !programmer.getPerson().isMale()).mapToLong(programmer->programmer.getLanguages().stream().distinct().count()).sum();
+        Integer resultII = programmers.stream().filter(programmer -> !programmer.getPerson().isMale()).map(programmer->programmer.getLanguages())
+                .flatMap(languages ->languages.stream()).collect(Collectors.toSet()).size();
+        System.out.println("Wynik I (Łączna liczba): "+resultI);
         System.out.println();
-
+        System.out.println("Wynik I (Unikatowe jezyki): "+resultII);
+        System.out.println();
     }
 }
